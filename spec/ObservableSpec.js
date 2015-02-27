@@ -18,35 +18,35 @@ describe('Observable,', function () {
         });
     });
 
-    describe('notify,', function () {
-        it('should be a function', function () {
-            expect(observable.notify).toEqual(jasmine.any(Function));
-        });
-        it('should throw if first argument is not a string', function () {
-            expect(function () {
-                observable.notify(null);
-            }).toThrow();
-        });
-        it('should call all registered observers once with the new and an old value',
-            function () {
-                var property = 'someProp';
-                var newValue = 'Some value';
-                var oldValue = null;
-                var spy1 = jasmine.createSpy('notify-spy-1');
-                var spy2 = jasmine.createSpy('notify-spy-2');
-                observable.$$observers[property] = [spy1, spy2];
-                observable.notify(property, newValue, oldValue);
-
-                expect(spy1).toHaveBeenCalledWith(newValue, oldValue);
-                expect(spy1.calls.count()).toBe(1);
-                expect(spy2).toHaveBeenCalledWith(newValue, oldValue);
-                expect(spy2.calls.count()).toBe(1);
-            }
-        );
-        it('should return the observable', function () {
-            expect(observable.notify('x')).toEqual(observable);
-        });
-    });
+    //describe('notify,', function () {
+    //    it('should be a function', function () {
+    //        expect(observable.notify).toEqual(jasmine.any(Function));
+    //    });
+    //    it('should throw if first argument is not a string', function () {
+    //        expect(function () {
+    //            observable.notify(null);
+    //        }).toThrow();
+    //    });
+    //    it('should call all registered observers once with the new and an old value',
+    //        function () {
+    //            var property = 'someProp';
+    //            var newValue = 'Some value';
+    //            var oldValue = null;
+    //            var spy1 = jasmine.createSpy('notify-spy-1');
+    //            var spy2 = jasmine.createSpy('notify-spy-2');
+    //            observable.$$observers[property] = [spy1, spy2];
+    //            observable.notify(property, newValue, oldValue);
+    //
+    //            expect(spy1).toHaveBeenCalledWith(newValue, oldValue);
+    //            expect(spy1.calls.count()).toBe(1);
+    //            expect(spy2).toHaveBeenCalledWith(newValue, oldValue);
+    //            expect(spy2.calls.count()).toBe(1);
+    //        }
+    //    );
+    //    it('should return the observable', function () {
+    //        expect(observable.notify('x')).toEqual(observable);
+    //    });
+    //});
 
     describe('observe,', function () {
         it('should be a function', function () {
@@ -151,14 +151,15 @@ describe('Observable,', function () {
             function () {
                 var spy = jasmine.createSpy('input-validation-spy');
                 var property = 'someProp';
-                var value = 'some value';
-                observable.createProperty(property, null, spy);
+                var initialValue = null;
+                var newValue = 'some value';
+                observable.createProperty(property, initialValue, spy);
 
                 expect(spy).not.toHaveBeenCalled();
 
-                observable[property] = value;
+                observable[property] = newValue;
 
-                expect(spy).toHaveBeenCalledWith(value);
+                expect(spy).toHaveBeenCalledWith(newValue, initialValue);
                 expect(spy.calls.count()).toEqual(1);
             }
         );
@@ -169,14 +170,21 @@ describe('Observable,', function () {
                 var initialValue = 'Some value';
                 var newValue = 'Some other value';
                 observable.createProperty(property, initialValue);
-                observable.observe(property, spy);
-
-                // Same value
-                observable[property] = initialValue;
                 expect(spy).not.toHaveBeenCalled();
+                expect(spy.calls.count()).toEqual(0);
+
+                // Register the observer should call it with current value and undefined
+                observable.observe(property, spy);
+                expect(spy).toHaveBeenCalledWith(initialValue, undefined);
+                expect(spy.calls.count()).toEqual(1);
+
+                // Same value, should not trigger
+                observable[property] = initialValue;
+                expect(spy.calls.count()).toEqual(1);
 
                 // New value
                 observable[property] = newValue;
+                expect(spy.calls.count()).toEqual(2);
                 expect(spy).toHaveBeenCalledWith(newValue, initialValue);
             }
         );

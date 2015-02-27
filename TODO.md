@@ -1,10 +1,9 @@
 # TODO
 
 ## Code
-- notify() when new observers are registered
 - Implement support for Arrays (deep)
 - Implement support for all properties on an Observable
-`observable.observe(function (property, newValue, oldValue) { });`
+`observable.observe(function (property, newValue, oldValue) {});`
 
 ## Tests
 - Write test-case for inheritance
