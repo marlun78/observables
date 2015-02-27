@@ -1,0 +1,37 @@
+{
+    "name": "me-observable",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./src",
+    "dependencies": {
+        "lodash.isarray": "^3.0.0",
+        "lodash.isboolean": "^3.0.0",
+        "lodash.isfunction": "^3.0.1",
+        "lodash.isnumber": "^3.0.0",
+        "lodash.isstring": "^3.0.0",
+        "lodash.isundefined": "^3.0.0"
+    },
+    "devDependencies": {
+        "jasmine": "^2.2.1"
+    },
+    "scripts": {
+        "test": "jasmine"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/marlun78/observables"
+    },
+    "author": "Martin Eneqvist <marlun78@hotmail.com> (https://github.com/marlun78)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/marlun78/observables/issues"
+    },
+    "homepage": "https://github.com/marlun78/observables",
+    "keywords": [
+        "observer",
+        "observe",
+        "observables",
+        "tool",
+        "tools"
+    ]
+}
