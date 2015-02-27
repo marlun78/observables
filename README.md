@@ -2,82 +2,75 @@
 
 Description
 
+---
+
 ## Install
 
 ```bash
 ...
 ```
 
+---
+
 ## Observable
 
 ### Methods
 
-#### createProperty
-`Observable.prototype.createProperty(name[, value[, validator]])`
+#### `Observable.prototype.createProperty()`
 
-##### `name` (string)
+##### Syntax
+```javascript
+observable.createProperty(name[, value[, validator]]);
+```
+
+##### Parameters
+
+**`name`** (string)  
 The property name. Can be used just like a “normal” property.
 
-##### `value` (any, optional, defaults to `undefined`)
+**`value`** (any, optional, defaults to `undefined`)  
 The initial value of the property. If a validator is specified, the value will
 first run threw it.
 
-##### `validator` (function, optional)
-`validator(proposedValue, currentValue)`
-
+**`validator`** (function, optional)  
 A function that can be used to validate the value before it’s assigned to the
 property. It gets two parameters, the new value being assigned and the current
-value. What ever the function returns will be assigned to the property.
+value. What ever the function returns will be assigned to the property.  
+Its signature is `validator(proposedValue, currentValue)`.
 
-#### notify
-`Observable.prototype.notify(name, newValue, oldValue)`
+#### `Observable.prototype.observe()`
+Registers an observer for a property. The observer will get called with the new 
+and the previous value everytime time the property changes. 
 
-#### observe
-`Observable.prototype.observe(name, observer)`
+##### Syntax
+`observable.observe(name, observer);`
 
-#### unobserve
-`Observable.prototype.unobserve(name[, observer])`
-
+#### `Observable.prototype.unobserve()`
 Unregisters an observer. If no observer is passed, all observers are removed.
 
+##### Syntax
+`observable.unobserve(name[, observer]);`
+
 ### Examples
-```javascript
-var Observable = require('me-observable').Observable;
+For examples, see the [examples](examples) directory.
 
-var trafficLight = new Observable();
-trafficLight.createProperty('state', 'red');
-trafficLight.observe('state', function (newValue, oldValue) {
-    console.log('traffic light changed from', oldValue, 'to', newValue);
-});
-trafficLight.state = 'green';
-// logs: traffic light changed from red to green
-```
+--- 
 
-#### Inheritance
-See [[examples/ObservableInheritanceExample.js]]
+## Single Value Observables
 
-#### With Validator
-See [[examples/ObservableWithValidatorExample.js]]
+There are also some Single Value Observable util functions. Currently there 
+are `ObservableBoolean`, `ObservableNumber`, `ObservableString` and 
+`ObservableValue`. 
 
-## ObservableValue
-```javascript
-var ObservableValue = require('me-observable').ObservableValue;
-```
-
-## ObservableBoolean
-```javascript
-var ObservableBoolean = require('me-observable').ObservableBoolean;
-```
-
-## ObservableNumber
-```javascript
-var ObservableNumber = require('me-observable').ObservableNumber;
-```
-
-## ObservableString
+Example:  
 ```javascript
 var ObservableString = require('me-observable').ObservableString;
+var string = new ObservableString('hello');
+string.observe(function(){});
+string.value = 'hola';
 ```
+
+---
 
 ## Comments / Bugs
 
