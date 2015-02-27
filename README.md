@@ -5,7 +5,7 @@ Description
 ## Install
 
 ```bash
-npm install me-observable
+...
 ```
 
 ## Observable
