@@ -1,8 +1,8 @@
 # Observables
 
-Description
+Still work in progress...
 
----
+
 
 ## Install
 
@@ -10,7 +10,7 @@ Description
 ...
 ```
 
----
+
 
 ## Observable
 
@@ -54,7 +54,7 @@ Unregisters an observer. If no observer is passed, all observers are removed.
 ### Examples
 For examples, see the [examples](examples) directory.
 
---- 
+
 
 ## Single Value Observables
 
@@ -70,7 +70,7 @@ string.observe(function(){});
 string.value = 'hola';
 ```
 
----
+
 
 ## Comments / Bugs
 
